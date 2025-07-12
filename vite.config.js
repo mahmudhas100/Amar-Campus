@@ -13,12 +13,12 @@ export default defineConfig({
       manifest: {
         name: 'Amar Campus',
         short_name: 'AmarCampus',
-        description: 'The Unified Student Growth Hub',
-        theme_color: '#082F49', // Your primary deep blue
-        background_color: '#F0F9FF', // Your surface/background color
+        description: 'Your Campus, Connected.',
+        theme_color: '#082F49', // our primary deep blue
+        background_color: '#F0F9FF', // our surface/background color
         icons: [
           {
-            src: 'pwa-192x192.png', // You need to create these icon files
+            src: 'pwa-192x192.png', // we need to create these icon files
             sizes: '192x192',
             type: 'image/png'
           },

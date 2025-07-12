@@ -1,3 +1,11 @@
+/* src/index.css - Default styles for Amar Campus */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  background-color: #0c4a6e;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+}
