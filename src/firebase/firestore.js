@@ -1,7 +1,5 @@
-import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
-import app from './firebase';
-
-const db = getFirestore(app);
+import { collection, getDocs, addDoc } from "firebase/firestore";
+import { db } from './firebase';
 
 export const getGrowthHubPosts = async () => {
   const snapshot = await getDocs(collection(db, "growthHubPosts"));
