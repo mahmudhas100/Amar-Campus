@@ -11,9 +11,7 @@ node_modules
 dist
 dist-ssr
 *.local
-.env
-.env.local
-AGENT.md
+
 
 # Editor directories and files
 .vscode/*
@@ -25,3 +23,8 @@ AGENT.md
 *.njsproj
 *.sln
 *.sw?
+
+.env
+.env.local
+AGENT.md
+Blueprint.md

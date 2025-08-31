@@ -17,11 +17,11 @@ const LandingNavbar = () => {
   };
 
   return (
-    <header className="bg-sky-900/80 backdrop-blur-sm fixed top-0 z-50 w-full">
+    <header className="bg-sky-900/70 backdrop-blur-lg fixed top-0 z-50 w-full border-b border-sky-800/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            <span className="text-2xl font-black text-white">Amar Campus</span>
+            <img src="/src/assets/icons/Logo1.png" alt="Amar Campus Logo" className="h-8 w-auto" />
           </div>
           <div className="flex items-center space-x-4">
             <button

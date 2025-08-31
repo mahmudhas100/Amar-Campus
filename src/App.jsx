@@ -7,10 +7,11 @@ import ProtectedRoute from './components/common/ProtectedRoute.jsx';
 import LandingPage from './pages/LandingPage.jsx';
 import { useAuth } from './hooks/useAuth.jsx';
 import Spinner from './components/common/Spinner';
+import VoiceBox from './pages/VoiceBox.jsx';
+import Profile from './pages/Profile.jsx';
+import PostPage from './pages/PostPage.jsx';
 import './index.css';
 
-const VoiceBox = () => <div className="p-8 text-center"><h1>Voice Box Page</h1></div>;
-const Profile = () => <div className="p-8 text-center"><h1>Profile Page</h1></div>;
 
 function App() {
   const { loading: authLoading } = useAuth();
@@ -36,9 +37,10 @@ function App() {
             </ProtectedRoute>
           }
         >
-          <Route path="/dashboard" element={<Home />} />
+          <Route path="/dashboard/*" element={<Home />} />
           <Route path="/dashboard/voice-box" element={<VoiceBox />} />
           <Route path="/dashboard/profile" element={<Profile />} />
+          <Route path="/post/:postId" element={<PostPage />} />
         </Route>
 
       </Routes>

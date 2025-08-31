@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useAuth } from "../hooks/useAuth.jsx";
 import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import { login, signup, signInWithGoogle } from "../firebase/auth";
+import { db } from "../firebase/firebase";
+import { setDoc, doc, serverTimestamp, getDoc } from "firebase/firestore";
 import { FcGoogle } from "react-icons/fc";
 import { HiArrowLeft, HiEye, HiEyeOff } from "react-icons/hi";
 import { HiCheck, HiX } from "react-icons/hi";
@@ -40,6 +43,13 @@ const Login = () => {
     section,
   } = formData;
   const navigate = useNavigate();
+  const { user } = useAuth();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/dashboard");
+    }
+  }, [user, navigate]);
 
   // Password validation function
   const validatePassword = (password, confirmPass = confirmPassword) => {
@@ -161,10 +171,20 @@ const Login = () => {
       if (isLoginMode) {
         await login(email, password);
       } else {
-        // TODO: Add user details to Firestore after signup
-        await signup(email, password);
+        const userCredential = await signup(email, password);
+        const user = userCredential.user;
+
+        // Add user details to Firestore
+        await setDoc(doc(db, "users", user.uid), {
+          firstName,
+          lastName,
+          email,
+          department,
+          section,
+          createdAt: serverTimestamp(),
+        });
       }
-      navigate("/home");
+      navigate("/dashboard");
     } catch (err) {
       switch (err.code) {
         case "auth/user-not-found":
@@ -206,8 +226,23 @@ const Login = () => {
     setLoading(true);
     setError("");
     try {
-      await signInWithGoogle();
-      navigate("/home");
+      const userCredential = await signInWithGoogle();
+      const user = userCredential.user;
+
+      // Check if user already exists in Firestore
+      const userDocRef = doc(db, "users", user.uid);
+      const userDocSnap = await getDoc(userDocRef);
+
+      if (!userDocSnap.exists()) {
+        // Add user details to Firestore
+        await setDoc(userDocRef, {
+          firstName: user.displayName.split(' ')[0],
+          lastName: user.displayName.split(' ')[1] || '',
+          email: user.email,
+          createdAt: serverTimestamp(),
+        });
+      }
+      navigate("/dashboard");
     } catch (err) {
       setError("Failed to sign in with Google. Please try again.");
       console.error(err);
