@@ -10,6 +10,7 @@ import Spinner from './components/common/Spinner';
 import VoiceBox from './pages/VoiceBox.jsx';
 import Profile from './pages/Profile.jsx';
 import PostPage from './pages/PostPage.jsx';
+import { adminRoutes } from './routes/adminRoutes';
 import './index.css';
 
 
@@ -43,6 +44,8 @@ function App() {
           <Route path="/post/:postId" element={<PostPage />} />
         </Route>
 
+        {/* Admin Routes */}
+        {adminRoutes}
       </Routes>
     </Router>
   );

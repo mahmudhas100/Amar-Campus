@@ -9,3 +9,17 @@ body {
   color: #fff;
   font-family: 'Inter', sans-serif;
 }
+
+.comment-thread .replies {
+  padding-left: 2rem; /* pl-8 */
+}
+
+@keyframes glowing {
+  0% { box-shadow: 0 0 5px rgba(255, 0, 0, 0.5) !important; }
+  33% { box-shadow: 0 0 20px rgba(0, 255, 0, 0.5) !important; }
+  66% { box-shadow: 0 0 5px rgba(0, 0, 255, 0.5) !important; }
+  100% { box-shadow: 0 0 5px rgba(255, 0, 0, 0.5) !important; }
+}
+.glowing-button {
+  animation: glowing 1.5s infinite;
+}

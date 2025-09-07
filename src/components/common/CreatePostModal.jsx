@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { HiX } from 'react-icons/hi';
+import { containsForbiddenKeywords } from '../../utils/contentModeration';
 
 const CreatePostModal = ({ isOpen, onClose, onSubmit, initialPost = null }) => {
   const [title, setTitle] = useState(initialPost ? initialPost.title : '');
@@ -16,6 +17,12 @@ const CreatePostModal = ({ isOpen, onClose, onSubmit, initialPost = null }) => {
       setError('Title and content cannot be empty.');
       return;
     }
+
+    if (containsForbiddenKeywords(title) || containsForbiddenKeywords(content)) {
+      setError('Your post contains words that are not allowed. Please revise your post.');
+      return;
+    }
+
     setLoading(true);
     setError('');
     try {
@@ -41,7 +48,7 @@ const CreatePostModal = ({ isOpen, onClose, onSubmit, initialPost = null }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm z-50 flex justify-center items-center p-4 transition-opacity duration-300">
-      <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 w-full max-w-lg transform transition-all duration-300 scale-95 opacity-0 animate-fade-in-scale">
+      <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 w-full max-w-lg transform transition-all duration-300 scale-95 opacity-0 animate-fade-in-scale hover:shadow-[0_0_20px_rgba(14,165,233,0.5)]">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-sky-900">{initialPost ? 'Edit Post' : 'Create a New Post'}</h2>
           <button onClick={onClose} className="text-slate-400 hover:text-slate-800 p-1 rounded-full transition-colors">

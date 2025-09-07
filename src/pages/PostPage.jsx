@@ -58,7 +58,7 @@ const PostPage = () => {
           </div>
         </div>
         
-        <div className="mt-8">
+        <div className="mt-8 comment-thread">
           <h2 className="text-2xl font-bold text-sky-800 mb-4">Comments</h2>
           <CommentForm postId={postId} />
           <CommentList postId={postId} />

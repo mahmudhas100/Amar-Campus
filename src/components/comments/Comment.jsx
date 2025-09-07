@@ -148,7 +148,7 @@ const Comment = ({ comment, postId, parentId = null }) => {
   const isAuthor = user && user.uid === authorId;
 
   return (
-    <div className="flex items-start space-x-4 py-4">
+    <div className="flex items-start space-x-4 py-4 comment">
       <img src={avatarUrl} alt={`${authorName}'s avatar`} className="w-10 h-10 rounded-full" />
       <div className="flex-1">
         <div className="bg-slate-100 rounded-lg p-3">
@@ -227,7 +227,7 @@ const Comment = ({ comment, postId, parentId = null }) => {
         </div>
         <p className="text-xs text-slate-500 mt-1">{formatTimestamp(timestamp)}</p>
         {showReplyForm && (
-          <div className="mt-4 pl-8">
+          <div className="mt-4">
             <CommentForm 
               postId={postId} 
               parentId={id} 
@@ -236,7 +236,7 @@ const Comment = ({ comment, postId, parentId = null }) => {
             />
           </div>
         )}
-        <div className="pl-8">
+        <div className="replies">
           <CommentList postId={postId} parentId={id} />
         </div>
       </div>

@@ -3,17 +3,25 @@ import { db } from '../../firebase/firebase';
 import { collection, addDoc, serverTimestamp, doc, updateDoc, increment } from 'firebase/firestore';
 import { useAuth } from '../../hooks/useAuth';
 import Button from '../common/Button';
+import { containsForbiddenKeywords } from '../../utils/contentModeration';
 
 const CommentForm = ({ postId, parentId = null, parentAuthor = '', onCommentAdded }) => {
   const { user } = useAuth();
   const [content, setContent] = useState(parentId ? `@${parentAuthor} ` : '');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!content.trim() || !user) return;
 
+    if (containsForbiddenKeywords(content)) {
+      setError('Your comment contains words that are not allowed. Please revise your comment.');
+      return;
+    }
+
     setLoading(true);
+    setError('');
     try {
       let commentsCollectionRef;
       if (parentId) {
@@ -44,6 +52,7 @@ const CommentForm = ({ postId, parentId = null, parentAuthor = '', onCommentAdde
 
     } catch (error) {
       console.error("Error adding comment:", error);
+      setError('Failed to post comment. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -55,9 +64,10 @@ const CommentForm = ({ postId, parentId = null, parentAuthor = '', onCommentAdde
         value={content}
         onChange={(e) => setContent(e.target.value)}
         placeholder="Write a comment..."
-        className="w-full p-2 border rounded-lg"
+        className="w-full p-2 bg-slate-100 text-slate-900 placeholder-slate-400 border border-slate-400 rounded-lg"
         rows="3"
       ></textarea>
+      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
       <div className="flex justify-end mt-2">
         <Button type="submit" disabled={loading || !content.trim()}>
           {loading ? 'Posting...' : 'Post Comment'}

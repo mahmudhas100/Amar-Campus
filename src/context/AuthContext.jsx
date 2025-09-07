@@ -4,6 +4,7 @@ import { auth, db } from '../firebase/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import { AuthContext } from './AuthContextObject';
 import Spinner from '../components/common/Spinner';
+import { checkAdminRole } from '../firebase/admin';
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -16,9 +17,17 @@ export const AuthProvider = ({ children }) => {
           const userDocRef = doc(db, 'users', user.uid);
           const userDocSnap = await getDoc(userDocRef);
           if (userDocSnap.exists()) {
-            setUser({ ...user, ...userDocSnap.data() });
+            const userData = userDocSnap.data();
+            // Check for admin role
+            const isAdmin = await checkAdminRole(user.uid);
+            setUser({ 
+              ...user, 
+              ...userData,
+              isAdmin, // Add admin status to user object
+              role: isAdmin ? 'admin' : 'user'
+            });
           } else {
-            setUser(user);
+            setUser({ ...user, isAdmin: false, role: 'user' });
           }
         } else {
           setUser(null);

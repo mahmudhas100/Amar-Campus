@@ -3,14 +3,29 @@ import { HiOutlineBell, HiChevronDown, HiChevronUp } from 'react-icons/hi';
 import formatTimestamp from '../../utils/formatTimestamp';
 
 const ClassFeedCard = ({ post }) => {
-  const { title = 'Official Announcement', snippet = '', content = '', timestamp = 'Just now', authorName = 'Admin' } = post || {};
+  const { title = 'Official Announcement', snippet = '', content = '', timestamp, authorName = 'Admin', priority = 'Normal' } = post || {};
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const getPriorityBorderClass = (priority) => {
+    switch (priority) {
+      case 'High':
+        return 'border-red-500';
+      case 'Urgent':
+        return 'border-yellow-500';
+      case 'Normal':
+        return 'border-blue-500';
+      case 'Low':
+        return 'border-green-500';
+      default:
+        return 'border-gray-500';
+    }
+  };
 
   const displayContent = isExpanded ? content : snippet;
 
   return (
     <div 
-      className={`bg-white rounded-xl shadow-md overflow-hidden border-l-4 border-amber-500 transition-shadow duration-300 hover:shadow-xl ${content && content !== snippet ? 'cursor-pointer' : ''}`}
+      className={`bg-white rounded-xl shadow-md overflow-hidden border-l-4 ${getPriorityBorderClass(priority)} transition-shadow duration-300 hover:shadow-xl ${content && content !== snippet ? 'cursor-pointer' : ''}`}
       onClick={() => content && content !== snippet && setIsExpanded(!isExpanded)}
     >
       <div className="p-4 sm:p-5">
@@ -21,7 +36,7 @@ const ClassFeedCard = ({ post }) => {
           </div>
           <div className="ml-3">
             <h2 className="text-lg font-bold text-slate-800">Official Notice</h2>
-            <p className="text-sm text-slate-500">from {authorName}</p>
+            <p className="text-sm text-slate-500">from Admin</p>
           </div>
         </div>
 
