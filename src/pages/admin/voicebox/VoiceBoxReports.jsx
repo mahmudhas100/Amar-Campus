@@ -36,18 +36,18 @@ const VoiceBoxReports = () => {
 
   return (
     <div className="p-4 sm:p-6 md:p-8">
-      <h1 className="text-3xl font-bold mb-6 text-sky-900">Voice Box Reports</h1>
+      <h1 className="text-3xl font-bold mb-6 text-white">Voice Box Reports</h1>
       {loading ? (
-        <p className="text-center text-slate-500">Loading reports...</p>
+        <p className="text-center text-gray-300">Loading reports...</p>
       ) : reports.length === 0 ? (
-        <p className="text-center text-slate-500">No reports found.</p>
+        <p className="text-center text-gray-300">No reports found.</p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {reports.map(report => (
-            <div key={report.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 ease-in-out">
+            <div key={report.id} className="bg-teal-900 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 ease-in-out">
               <div className="p-6">
-                <p className="text-slate-800 text-base mb-4">{report.message}</p>
-                <p className="text-sm text-slate-500 mb-6">
+                <p className="text-white text-base mb-4">{report.message}</p>
+                <p className="text-sm text-gray-400 mb-6">
                   {new Date(report.timestamp.seconds * 1000).toLocaleString()}
                 </p>
                 <div className="flex justify-between items-center">
@@ -59,7 +59,7 @@ const VoiceBoxReports = () => {
                   </button>
                   <button
                     onClick={() => mailTo(report)}
-                    className="bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300 flex items-center"
+                    className="bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300 flex items-center"
                   >
                     <FiMail className="mr-2" />
                     Mail to

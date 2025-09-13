@@ -119,14 +119,14 @@ const EditProfileModal = ({ isOpen, onClose }) => {
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="w-full max-w-md p-4 bg-gradient-to-br from-white to-sky-50/30 rounded-xl">
+      <div className="w-full max-w-md p-6 bg-background-secondary rounded-2xl border border-border-primary">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h2 className="text-xl font-bold text-sky-900">Edit Profile</h2>
-            <p className="text-sky-600/80 text-xs">Update your information</p>
+            <h2 className="text-xl font-bold text-text-primary">Edit Profile</h2>
+            <p className="text-text-secondary text-xs">Update your information</p>
           </div>
           {error && (
-            <div className="text-sm text-red-600 flex items-center">
+            <div className="text-sm text-red-400 flex items-center">
               <svg className="w-4 h-4 mr-1 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
@@ -138,7 +138,7 @@ const EditProfileModal = ({ isOpen, onClose }) => {
         <form onSubmit={handleSubmit} className="space-y-3">
           <div className="grid grid-cols-2 gap-3">
             <div className="col-span-2">
-              <label htmlFor="displayName" className="block text-xs font-semibold text-sky-900 mb-1">
+              <label htmlFor="displayName" className="block text-xs font-semibold text-text-primary mb-1">
                 Display Name
               </label>
               <input
@@ -147,13 +147,13 @@ const EditProfileModal = ({ isOpen, onClose }) => {
                 name="displayName"
                 value={formData.displayName}
                 onChange={handleInputChange}
-                className="w-full px-2 py-1.5 bg-white/50 border border-sky-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500 transition-all duration-200 hover:border-sky-300"
+                className="w-full px-3 py-2 bg-background-primary border border-border-primary rounded-lg text-sm text-text-primary placeholder-text-secondary focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all duration-200"
                 required
               />
             </div>
 
             <div>
-              <label htmlFor="department" className="block text-xs font-semibold text-sky-900 mb-1">
+              <label htmlFor="department" className="block text-xs font-semibold text-text-primary mb-1">
                 Department
               </label>
               <input
@@ -162,13 +162,13 @@ const EditProfileModal = ({ isOpen, onClose }) => {
                 name="department"
                 value={formData.department}
                 onChange={handleInputChange}
-                className="w-full px-2 py-1.5 bg-white/50 border border-sky-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500 transition-all duration-200 hover:border-sky-300"
+                className="w-full px-3 py-2 bg-background-primary border border-border-primary rounded-lg text-sm text-text-primary placeholder-text-secondary focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all duration-200"
                 placeholder="e.g., CSE"
               />
             </div>
 
             <div>
-              <label htmlFor="section" className="block text-xs font-semibold text-sky-900 mb-1">
+              <label htmlFor="section" className="block text-xs font-semibold text-text-primary mb-1">
                 Section
               </label>
               <input
@@ -177,13 +177,13 @@ const EditProfileModal = ({ isOpen, onClose }) => {
                 name="section"
                 value={formData.section}
                 onChange={handleInputChange}
-                className="w-full px-2 py-1.5 bg-white/50 border border-sky-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500 transition-all duration-200 hover:border-sky-300"
+                className="w-full px-3 py-2 bg-background-primary border border-border-primary rounded-lg text-sm text-text-primary placeholder-text-secondary focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all duration-200"
                 placeholder="e.g., A1"
               />
             </div>
 
             <div className="col-span-2">
-              <label htmlFor="bio" className="block text-xs font-semibold text-sky-900 mb-1">
+              <label htmlFor="bio" className="block text-xs font-semibold text-text-primary mb-1">
                 Bio
               </label>
               <textarea
@@ -192,24 +192,24 @@ const EditProfileModal = ({ isOpen, onClose }) => {
                 value={formData.bio}
                 onChange={handleInputChange}
                 rows={2}
-                className="w-full px-2 py-1.5 bg-white/50 border border-sky-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500 transition-all duration-200 hover:border-sky-300"
+                className="w-full px-3 py-2 bg-background-primary border border-border-primary rounded-lg text-sm text-text-primary placeholder-text-secondary focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all duration-200"
                 placeholder="Brief bio..."
               />
             </div>
           </div>
 
-          <div className="pt-3 mt-3 border-t border-sky-100 flex justify-end space-x-2">
+          <div className="pt-3 mt-3 border-t border-border-primary flex justify-end space-x-2">
             <button
               type="button"
               onClick={onClose}
-              className="px-3 py-1.5 border border-sky-200 rounded text-xs font-semibold text-sky-700 bg-white hover:bg-sky-50 focus:outline-none focus:ring-1 focus:ring-sky-500 transition-colors duration-200"
+              className="px-4 py-2 text-sm font-medium text-text-secondary hover:bg-background-primary rounded-lg transition-colors"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="px-3 py-1.5 border border-transparent rounded text-xs font-semibold text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-1 focus:ring-sky-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center min-w-[70px] transition-colors duration-200"
+              className="px-4 py-2 border border-transparent rounded-lg text-sm font-semibold text-background-primary bg-accent hover:bg-accent-hover focus:outline-none focus:ring-2 focus:ring-accent disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center min-w-[90px] transition-colors duration-200"
             >
               {loading ? (
                 <>

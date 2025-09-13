@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './pages/Login.jsx';
 import Home from './pages/Home/Home.jsx';
@@ -14,12 +14,22 @@ import { adminRoutes } from './routes/adminRoutes';
 import './index.css';
 
 
+import RootLayout from './components/layout/RootLayout';
+
 function App() {
   const { loading: authLoading } = useAuth();
 
+  useEffect(() => {
+    if (authLoading) {
+      document.body.classList.add('bg-transparent');
+    } else {
+      document.body.classList.remove('bg-transparent');
+    }
+  }, [authLoading]);
+
   if (authLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-sky-900 to-sky-800 flex justify-center items-center">
+      <div className="min-h-screen flex justify-center items-center">
         <Spinner />
       </div>
     );
@@ -28,24 +38,26 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={<Login />} />
-        
-        <Route 
-          element={
-            <ProtectedRoute>
-              <AppLayout />
-            </ProtectedRoute>
-          }
-        >
-          <Route path="/dashboard/*" element={<Home />} />
-          <Route path="/dashboard/voice-box" element={<VoiceBox />} />
-          <Route path="/dashboard/profile" element={<Profile />} />
-          <Route path="/post/:postId" element={<PostPage />} />
-        </Route>
+        <Route element={<RootLayout />}>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<Login />} />
+          
+          <Route 
+            element={
+              <ProtectedRoute>
+                <AppLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route path="/dashboard/*" element={<Home />} />
+            <Route path="/dashboard/voice-box" element={<VoiceBox />} />
+            <Route path="/dashboard/profile" element={<Profile />} />
+            <Route path="/post/:postId" element={<PostPage />} />
+          </Route>
 
-        {/* Admin Routes */}
-        {adminRoutes}
+          {/* Admin Routes */}
+          {adminRoutes}
+        </Route>
       </Routes>
     </Router>
   );

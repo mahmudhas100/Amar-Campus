@@ -94,21 +94,21 @@ const Profile = () => {
 
   return (
     <>
-      <div className="bg-slate-50 flex items-center justify-center mt-0" style={{minHeight: 'calc(100vh - 64px)'}}>
+      <div className="flex items-center justify-center mt-0" style={{minHeight: 'calc(100vh - 64px)'}}>
         <div className="relative p-4 sm:p-6 w-full">
-          <div className="max-w-xl mx-auto bg-white p-6 rounded-2xl shadow-lg relative pt-20">
+          <div className="max-w-xl mx-auto bg-background-secondary p-6 rounded-2xl shadow-lg relative pt-20 border border-border-primary">
             {/* Admin Panel Button - Top Right */}
             {user.isAdmin ? (
               <Link 
                 to="/admin"
-                className="absolute top-4 right-4 flex items-center px-3 py-1.5 bg-sky-600 hover:bg-sky-700 text-white text-sm font-semibold rounded-lg transition-colors"
+                className="absolute top-4 right-4 flex items-center px-3 py-1.5 bg-accent/10 hover:bg-accent/20 text-accent text-sm font-semibold rounded-lg transition-colors"
               >
                 <HiOutlineShieldCheck className="w-4 h-4 mr-1" /> Admin Panel
               </Link>
             ) : (
               <button
                 onClick={() => setShowAdminKeyInput(true)}
-                className="absolute top-4 right-4 flex items-center px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-semibold rounded-lg transition-colors"
+                className="absolute top-4 right-4 flex items-center px-3 py-1.5 bg-background-primary hover:bg-background-primary/50 text-text-secondary text-sm font-semibold rounded-lg transition-colors"
               >
                 <HiOutlineLockClosed className="w-4 h-4 mr-1" /> Become Admin
               </button>
@@ -117,32 +117,32 @@ const Profile = () => {
               <img
                 src={profileImageUrl}
                 alt="Profile"
-                className="w-28 h-28 rounded-full border-4 border-white shadow-md"
+                className="w-28 h-28 rounded-full border-4 border-background-secondary shadow-md"
               />
             </div>
             <div className="flex flex-col items-center text-center">
-              <h2 className="text-3xl font-bold text-sky-900">{profileData.displayName}</h2>
-              <p className="text-slate-500 mt-1">{profileData.email}</p>
+              <h2 className="text-3xl font-bold text-text-primary">{profileData.displayName}</h2>
+              <p className="text-text-secondary mt-1">{profileData.email}</p>
               {profileData.department && (
-                <p className="text-slate-500 mt-1">Department: {profileData.department}</p>
+                <p className="text-text-secondary mt-1">Department: {profileData.department}</p>
               )}
               {profileData.section && (
-                <p className="text-slate-500 mt-1">Section: {profileData.section}</p>
+                <p className="text-text-secondary mt-1">Section: {profileData.section}</p>
               )}
               {profileData.bio && (
-                <p className="text-slate-600 mt-3 text-sm">{profileData.bio}</p>
+                <p className="text-text-primary mt-3 text-sm">{profileData.bio}</p>
               )}
             </div>
 
-            <div className="mt-8 border-t border-slate-200 pt-6 flex flex-col sm:flex-row justify-center items-center gap-3">
+            <div className="mt-8 border-t border-border-primary pt-6 flex flex-col sm:flex-row justify-center items-center gap-3">
               <button 
                 onClick={() => setIsModalOpen(true)}
-                className="w-full sm:w-auto flex items-center justify-center px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-lg transition-colors">
+                className="w-full sm:w-auto flex items-center justify-center px-4 py-2 bg-background-primary hover:bg-background-primary/50 text-text-secondary font-semibold rounded-lg transition-colors">
                 <HiOutlinePencil className="mr-2 w-5 h-5" /> Edit Profile
               </button>
               <button
                 onClick={handleLogoutClick}
-                className="w-full sm:w-auto flex items-center justify-center px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-bold rounded-lg transition-colors"
+                className="w-full sm:w-auto flex items-center justify-center px-4 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 font-bold rounded-lg transition-colors"
               >
                 <HiOutlineLogout className="mr-2 w-5 h-5" /> Log Out
               </button>
@@ -151,17 +151,17 @@ const Profile = () => {
             {/* Admin Key Input Modal */}
             {showAdminKeyInput && (
               <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-                <div className="bg-white rounded-xl p-6 max-w-md w-full">
-                  <h3 className="text-lg font-bold text-sky-900 mb-4">Enter Admin Key</h3>
+                <div className="bg-background-secondary rounded-xl p-6 max-w-md w-full border border-border-primary">
+                  <h3 className="text-lg font-bold text-text-primary mb-4">Enter Admin Key</h3>
                   <input
                     type="password"
                     value={adminKey}
                     onChange={(e) => setAdminKey(e.target.value)}
                     placeholder="Enter the admin key"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:bg-white focus:border-sky-500 text-slate-900 placeholder-slate-500 mb-2"
+                    className="w-full px-3 py-2 bg-background-primary border border-border-primary rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent text-text-primary placeholder-text-secondary mb-2"
                   />
                   {adminKeyError && (
-                    <p className="text-red-500 text-sm mb-2">{adminKeyError}</p>
+                    <p className="text-red-400 text-sm mb-2">{adminKeyError}</p>
                   )}
                   <div className="flex justify-end space-x-3 mt-4">
                     <button
@@ -170,13 +170,13 @@ const Profile = () => {
                         setAdminKey('');
                         setAdminKeyError('');
                       }}
-                      className="px-4 py-2 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors"
+                      className="px-4 py-2 text-text-secondary hover:bg-background-primary rounded-lg transition-colors"
                     >
                       Cancel
                     </button>
                     <button
                       onClick={handleAdminKeySubmit}
-                      className="px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition-colors"
+                      className="px-4 py-2 bg-accent text-background-primary rounded-lg hover:bg-accent-hover transition-colors"
                     >
                       Submit
                     </button>

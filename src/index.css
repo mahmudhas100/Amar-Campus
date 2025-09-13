@@ -5,8 +5,7 @@
 @tailwind utilities;
 
 body {
-  background-color: #0c4a6e;
-  color: #fff;
+  @apply bg-background-primary text-text-primary transition-colors duration-500;
   font-family: 'Inter', sans-serif;
 }
 

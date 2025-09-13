@@ -204,35 +204,35 @@ const GrowthHubCard = ({ post }) => {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-md overflow-hidden transition-shadow duration-300 hover:shadow-xl border border-slate-200/80">
+    <div className="bg-background-secondary rounded-xl shadow-md overflow-hidden transition-shadow duration-300 hover:shadow-xl hover:shadow-sky-900/20 border border-border-primary">
       <Link to={`/post/${id}`} className="block">
         {/* Card Header */}
         <div className="p-4 sm:p-5 flex items-center">
-          <img className="w-12 h-12 rounded-full mr-4 border-2 border-slate-200" src={avatarUrl} alt={`${authorName}'s avatar`} />
+          <img className="w-12 h-12 rounded-full mr-4 border-2 border-border-primary" src={avatarUrl} alt={`${authorName}'s avatar`} />
           <div className="flex-grow">
-            <p className="font-bold text-slate-800">{authorName}</p>
-            <p className="text-sm text-slate-500">{formatTimeAgo(displayTimestamp)} · <span className="font-semibold text-sky-700">{category}</span></p>
+            <p className="font-bold text-text-primary">{authorName}</p>
+            <p className="text-sm text-text-secondary">{formatTimeAgo(displayTimestamp)} · <span className="font-semibold text-accent">{category}</span></p>
           </div>
           {user && user.uid === post.authorId && (
             <div className="relative" ref={menuRef}>
               <button
                 onClick={(e) => { e.preventDefault(); e.stopPropagation(); setShowMenu(!showMenu); }}
-                className="text-slate-400 hover:text-slate-600 transition-colors duration-200 ml-4"
+                className="text-text-secondary hover:text-text-primary transition-colors duration-200 ml-4"
                 title="More options"
               >
                 <HiOutlineDotsVertical className="w-5 h-5" />
               </button>
               {showMenu && (
-                <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg z-10">
+                <div className="absolute right-0 mt-2 w-40 bg-background-primary rounded-md shadow-lg z-10 border border-border-primary">
                   <button
                     onClick={handleEdit}
-                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block w-full text-left px-4 py-2 text-sm text-text-primary hover:bg-background-secondary"
                   >
                     Edit
                   </button>
                   <button
                     onClick={handleDelete}
-                    className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-100"
+                    className="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-500/10"
                   >
                     Delete
                   </button>
@@ -244,8 +244,8 @@ const GrowthHubCard = ({ post }) => {
 
         {/* Card Body */}
         <div className="px-4 sm:px-5 pb-4">
-          <h3 className="text-xl font-bold text-sky-900 mb-2 leading-snug">{title}</h3>
-          <p className="text-slate-700 text-base leading-relaxed">
+          <h3 className="text-xl font-bold text-text-primary mb-2 leading-snug">{title}</h3>
+          <p className="text-text-secondary text-base leading-relaxed">
             {post.content.length <= MAX_CONTENT_LENGTH || showFullContent
               ? post.content
               : `${post.content.substring(0, MAX_CONTENT_LENGTH)}...`}
@@ -253,7 +253,7 @@ const GrowthHubCard = ({ post }) => {
           {post.content.length > MAX_CONTENT_LENGTH && (
             <button
               onClick={(e) => { e.preventDefault(); e.stopPropagation(); setShowFullContent(!showFullContent); }}
-              className="text-sky-600 hover:text-sky-800 font-semibold text-sm flex items-center mt-2"
+              className="text-accent hover:text-accent-hover font-semibold text-sm flex items-center mt-2"
             >
               {showFullContent ? 'Show less' : 'Read more'}
               {showFullContent ? <HiChevronUp className="w-5 h-5 ml-1" /> : <HiChevronDown className="w-5 h-5 ml-1" />}
@@ -270,35 +270,26 @@ const GrowthHubCard = ({ post }) => {
               <button
                 type="button"
                 onClick={() => setShowAttendanceMenu(!showAttendanceMenu)}
-                className={`flex items-center space-x-2 font-medium py-1.5 px-3 rounded-lg transition-colors duration-200 ${
-                  userAttendanceStatus ? 'text-sky-600 bg-sky-50 border border-sky-200' : 'text-slate-600 hover:text-sky-600 hover:bg-sky-100 border border-slate-200'
-                }`}
-              >
+                className={`flex items-center space-x-2 font-medium py-1.5 px-3 rounded-lg transition-colors duration-200 ${userAttendanceStatus ? 'text-accent bg-accent/10 border border-accent/20' : 'text-text-secondary hover:text-accent hover:bg-accent/10 border border-border-primary'}`}>
                 <span className="text-sm">{userAttendanceStatus ? `${userAttendanceStatus.charAt(0).toUpperCase() + userAttendanceStatus.slice(1)}` : 'Attend'}</span>
                 <HiChevronDown className={`w-5 h-5 transition-transform ${showAttendanceMenu ? 'rotate-180' : ''}`} />
               </button>
               {showAttendanceMenu && (
                 <div 
-                  className="absolute right-0 mt-1 bg-white rounded-lg shadow-lg border border-gray-200 p-1"
+                  className="absolute right-0 mt-1 bg-background-primary rounded-lg shadow-lg border border-border-primary p-1"
                 >
                   <div className="flex space-x-1">
                     <button
                       type="button"
                       onClick={() => handleAttendance('going')}
-                      className={`flex flex-col items-center px-4 py-2 text-sm rounded-lg transition-colors duration-200 ${
-                        userAttendanceStatus === 'going' ? 'text-sky-600 bg-sky-50' : 'text-gray-700 hover:bg-gray-100'
-                      }`}
-                    >
+                      className={`flex flex-col items-center px-4 py-2 text-sm rounded-lg transition-colors duration-200 ${userAttendanceStatus === 'going' ? 'text-accent bg-accent/10' : 'text-text-secondary hover:bg-background-secondary'}`}>
                       <span>Going</span>
                       <span className="font-medium">{localGoingCount}</span>
                     </button>
                     <button
                       type="button"
                       onClick={() => handleAttendance('interested')}
-                      className={`flex flex-col items-center px-4 py-2 text-sm rounded-lg transition-colors duration-200 ${
-                        userAttendanceStatus === 'interested' ? 'text-sky-600 bg-sky-50' : 'text-gray-700 hover:bg-gray-100'
-                      }`}
-                    >
+                      className={`flex flex-col items-center px-4 py-2 text-sm rounded-lg transition-colors duration-200 ${userAttendanceStatus === 'interested' ? 'text-accent bg-accent/10' : 'text-text-secondary hover:bg-background-secondary'}`}>
                       <span>Interested</span>
                       <span className="font-medium">{localInterestedCount}</span>
                     </button>
@@ -311,27 +302,25 @@ const GrowthHubCard = ({ post }) => {
       )}
 
       {/* Card Footer (Interaction Bar) */}
-      <div className="bg-slate-50/70 px-4 sm:px-5 py-2 border-t border-slate-200/80">
+      <div className="bg-background-primary/50 px-4 sm:px-5 py-2 border-t border-border-primary">
         <div className="flex justify-around items-center">
           <button 
             onClick={handleUpvote}
-            className={`flex items-center space-x-2  hover:bg-sky-100 font-medium py-2 px-3 rounded-lg transition-colors duration-200 w-full justify-center ${
-              isUpvoted ? 'text-sky-600' : 'text-slate-600'
-            }`}>
-            {isUpvoted ? <HiThumbUp className="w-6 h-6" /> : <HiOutlineThumbUp className="w-6 h-6" />}
+            className={`flex items-center space-x-2 hover:bg-accent/10 font-medium py-2 px-3 rounded-lg transition-colors duration-200 w-full justify-center ${isUpvoted ? 'text-accent' : 'text-text-secondary'}`}>
+            {isUpvoted ? <HiThumbUp className="w-6 h-6" /> : <HiOutlineThumbUp className="w-6 h-6" />} 
             <span className="text-sm">{localUpvotes} Upvotes</span>
           </button>
-          <div className="h-6 border-l border-slate-200"></div>
+          <div className="h-6 border-l border-border-primary"></div>
           <button 
             onClick={() => setCommentsOpen(!commentsOpen)}
-            className="flex items-center space-x-2 text-slate-600 hover:text-sky-600 hover:bg-sky-100 font-medium py-2 px-3 rounded-lg transition-colors duration-200 w-full justify-center">
+            className="flex items-center space-x-2 text-text-secondary hover:text-accent hover:bg-accent/10 font-medium py-2 px-3 rounded-lg transition-colors duration-200 w-full justify-center">
             <HiOutlineChatAlt className="w-6 h-6" />
             <span className="text-sm">{realtimeCommentsCount} Comments</span>
           </button>
-          <div className="h-6 border-l border-slate-200"></div>
+          <div className="h-6 border-l border-border-primary"></div>
           <button 
             onClick={handleShare} 
-            className="flex items-center space-x-2 text-slate-600 hover:text-sky-600 hover:bg-sky-100 font-medium py-2 px-3 rounded-lg transition-colors duration-200 w-full justify-center">
+            className="flex items-center space-x-2 text-text-secondary hover:text-accent hover:bg-accent/10 font-medium py-2 px-3 rounded-lg transition-colors duration-200 w-full justify-center">
             <HiOutlineShare className="w-6 h-6" />
             <span className="text-sm">Share</span>
           </button>
@@ -339,7 +328,7 @@ const GrowthHubCard = ({ post }) => {
       </div>
 
       {commentsOpen && (
-        <div className="p-4 sm:p-5 border-t border-slate-200/80 transition-all duration-300 ease-in-out overflow-hidden max-h-screen opacity-100">
+        <div className="p-4 sm:p-5 border-t border-border-primary transition-all duration-300 ease-in-out overflow-hidden max-h-screen opacity-100">
           <CommentList postId={id} />
           <CommentForm postId={id} />
         </div>

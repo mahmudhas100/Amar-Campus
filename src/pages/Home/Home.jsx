@@ -145,14 +145,14 @@ const Home = () => {
   const otherPosts = filteredFeed.filter(post => post.type !== 'classFeed' && post.type !== 'event');
 
   return (
-    <div className="bg-slate-50 pt-16">
+    <div className="pt-16">
       <header className="p-4 sm:p-6 md:p-8 mb-4">
-        <h2 className="font-sans text-3xl font-bold text-sky-900">{getGreeting()}, {displayName}</h2>
-        <p className="text-slate-500 mt-1">Here's your campus briefing for today.</p>
+        <h2 className="font-sans text-3xl font-bold text-text-primary">{getGreeting()}, {displayName}</h2>
+        <p className="text-text-secondary mt-1">Here's your campus briefing for today.</p>
       </header>
 
       <section className="p-4 sm:p-6 md:p-8 mb-10">
-        <h3 className="text-xl font-bold text-sky-800 mb-4 flex items-center">
+        <h3 className="text-xl font-bold text-text-primary mb-4 flex items-center">
           <HiOutlineViewGrid className="mr-3 text-sky-500 w-6 h-6" />
           At a Glance
         </h3>
@@ -164,13 +164,13 @@ const Home = () => {
       </section>
 
       <section className="p-4 sm:p-6 md:p-8">
-        <h3 className="text-xl font-bold text-sky-800 mb-4 flex items-center">
+        <h3 className="text-xl font-bold text-text-primary mb-4 flex items-center">
           <HiOutlineCollection className="mr-3 text-sky-500 w-6 h-6" />
           Unified Feed
         </h3>
         <div className="max-w-2xl mx-auto space-y-5">
-            <h3 className="font-bold text-slate-500 text-sm uppercase tracking-wider">Official Notices</h3>
-            <div className="bg-white p-4 rounded-lg shadow-sm border border-slate-200 mb-6">
+            <h3 className="font-bold text-text-secondary text-sm uppercase tracking-wider">Official Notices</h3>
+            <div className="bg-background-secondary p-4 rounded-2xl border border-border-primary mb-6">
             {
               loading ? (
                 <Spinner />
@@ -189,7 +189,7 @@ const Home = () => {
               )
             }
             </div>
-            <h3 className="font-bold text-slate-500 text-sm uppercase tracking-wider mt-10">Events</h3>
+            <h3 className="font-bold text-text-secondary text-sm uppercase tracking-wider mt-10">Events</h3>
             {
               loading ? (
                 <Spinner />
@@ -207,7 +207,7 @@ const Home = () => {
                 </>
               )
             }
-            <h3 className="font-bold text-slate-500 text-sm uppercase tracking-wider mt-10">Today's Feed</h3>
+            <h3 className="font-bold text-text-secondary text-sm uppercase tracking-wider mt-10">Today's Feed</h3>
             {
               loading ? (
                 <Spinner />

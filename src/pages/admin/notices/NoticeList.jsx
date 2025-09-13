@@ -33,15 +33,15 @@ const NoticeList = () => {
   const getPriorityClass = (priority) => {
     switch (priority) {
       case 'High':
-        return 'bg-red-100 text-red-800';
+        return 'bg-red-800 text-red-100';
       case 'Urgent':
-        return 'bg-yellow-100 text-yellow-800';
+        return 'bg-yellow-800 text-yellow-100';
       case 'Normal':
-        return 'bg-blue-100 text-blue-800';
+        return 'bg-blue-800 text-blue-100';
       case 'Low':
-        return 'bg-green-100 text-green-800';
+        return 'bg-green-800 text-green-100';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-gray-800 text-gray-100';
     }
   };
 
@@ -54,25 +54,25 @@ const NoticeList = () => {
       ) : (
         <div className="grid gap-4">
           {notices.map(notice => (
-            <div key={notice.id} className="bg-white p-4 rounded-lg shadow flex justify-between items-start">
+            <div key={notice.id} className="bg-teal-900 p-4 rounded-lg shadow flex justify-between items-start">
               <div>
                 <div className="flex items-center mb-2">
                   <span className={`px-2 py-1 text-xs font-semibold rounded-full ${getPriorityClass(notice.priority)}`}>
                     {notice.priority}
                   </span>
-                  <span className="ml-2 px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">
+                  <span className="ml-2 px-2 py-1 text-xs font-semibold rounded-full bg-teal-800 text-gray-300">
                     {notice.category}
                   </span>
                 </div>
-                <h3 className="font-bold text-lg text-sky-900">{notice.title}</h3>
-                <p className="text-slate-600">{notice.content}</p>
-                <p className="text-sm text-slate-500 mt-2">
+                <h3 className="font-bold text-lg text-white">{notice.title}</h3>
+                <p className="text-gray-300">{notice.content}</p>
+                <p className="text-sm text-gray-400 mt-2">
                   {formatTimestamp(notice.createdAt)}
                 </p>
               </div>
               <button
                 onClick={() => deleteNotice(notice.id)}
-                className="text-red-500 hover:text-red-700"
+                className="text-red-400 hover:text-red-300"
               >
                 <HiOutlineTrash className="w-6 h-6" />
               </button>

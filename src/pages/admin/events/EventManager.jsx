@@ -117,12 +117,12 @@ const EventManager = () => {
     <div className="max-w-7xl mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-sky-900 mb-1">Event Manager</h1>
-          <p className="text-white-600 text-xl">Create and manage campus events</p>
+          <h1 className="text-2xl font-bold text-white mb-1">Event Manager</h1>
+          <p className="text-gray-300 text-xl">Create and manage campus events</p>
         </div>
         <button
           onClick={openModalToCreate}
-          className="flex items-center px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition-all duration-200 shadow-sm hover:shadow"
+          className="flex items-center px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-all duration-200 shadow-sm hover:shadow"
         >
           <HiOutlinePlus className="w-5 h-5 mr-2" />
           Create Event
@@ -131,36 +131,36 @@ const EventManager = () => {
 
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-xl p-6 max-w-2xl w-full shadow-xl">
-            <h2 className="text-xl font-bold text-sky-900 mb-4">{isEditing ? 'Edit Event' : 'Create New Event'}</h2>
+          <div className="bg-teal-900 rounded-xl p-6 max-w-2xl w-full shadow-xl">
+            <h2 className="text-xl font-bold text-white mb-4">{isEditing ? 'Edit Event' : 'Create New Event'}</h2>
             <form onSubmit={isEditing ? handleUpdateEvent : handleCreateEvent}>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Title</label>
-                  <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-black" placeholder="e.g. Annual Sports Day" required />
+                  <label className="block text-sm font-medium text-gray-300 mb-1">Title</label>
+                  <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="w-full px-3 py-2 bg-teal-800 border border-teal-700 rounded-lg text-white" placeholder="e.g. Annual Sports Day" required />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Date</label>
-                  <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-black" required />
+                  <label className="block text-sm font-medium text-gray-300 mb-1">Date</label>
+                  <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="w-full px-3 py-2 bg-teal-800 border border-teal-700 rounded-lg text-white" required />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Time</label>
-                  <input type="time" value={time} onChange={(e) => setTime(e.target.value)} className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-black" required />
+                  <label className="block text-sm font-medium text-gray-300 mb-1">Time</label>
+                  <input type="time" value={time} onChange={(e) => setTime(e.target.value)} className="w-full px-3 py-2 bg-teal-800 border border-teal-700 rounded-lg text-white" required />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Location</label>
-                  <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-black" placeholder="e.g. Main Campus Ground" />
+                  <label className="block text-sm font-medium text-gray-300 mb-1">Location</label>
+                  <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} className="w-full px-3 py-2 bg-teal-800 border border-teal-700 rounded-lg text-white" placeholder="e.g. Main Campus Ground" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Description</label>
-                  <textarea value={description} onChange={(e) => setDescription(e.target.value)} className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg h-32 text-black" placeholder="e.g. Join us for a day of fun and friendly competition." />
+                  <label className="block text-sm font-medium text-gray-300 mb-1">Description</label>
+                  <textarea value={description} onChange={(e) => setDescription(e.target.value)} className="w-full px-3 py-2 bg-teal-800 border border-teal-700 rounded-lg h-32 text-white" placeholder="e.g. Join us for a day of fun and friendly competition." />
                 </div>
               </div>
               <div className="mt-6 flex justify-end space-x-3">
-                <button type="button" onClick={() => setShowModal(false)} className="px-4 py-2 text-slate-700 hover:bg-slate-100 rounded-lg">
+                <button type="button" onClick={() => setShowModal(false)} className="px-4 py-2 text-gray-300 hover:bg-teal-700 rounded-lg">
                   Cancel
                 </button>
-                <button type="submit" className="px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700">
+                <button type="submit" className="px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700">
                   {isEditing ? 'Update Event' : 'Create Event'}
                 </button>
               </div>
@@ -169,29 +169,29 @@ const EventManager = () => {
         </div>
       )}
 
-      <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
-        <table className="min-w-full divide-y divide-slate-200">
-          <thead className="bg-slate-50">
+      <div className="bg-teal-900 rounded-xl border border-teal-800 overflow-hidden">
+        <table className="min-w-full divide-y divide-teal-800">
+          <thead className="bg-teal-800">
             <tr>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Title</th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Date</th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Time</th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Location</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Title</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Date</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Time</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Location</th>
               <th scope="col" className="relative px-6 py-3">
                 <span className="sr-only">Edit</span>
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-slate-200">
+          <tbody className="bg-teal-900 divide-y divide-teal-800">
             {events.map((event) => (
               <tr key={event.id}>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">{event.title}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500">{event.date}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500">{formatTime12Hour(event.time)}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500">{event.location}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">{event.title}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{event.date}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{formatTime12Hour(event.time)}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{event.location}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <button onClick={() => openModalToEdit(event)} className="text-sky-600 hover:text-sky-900 mr-4"><HiOutlinePencil className="w-5 h-5" /></button>
-                  <button onClick={() => handleDeleteEvent(event.id)} className="text-red-600 hover:text-red-900"><HiOutlineTrash className="w-5 h-5" /></button>
+                  <button onClick={() => openModalToEdit(event)} className="text-teal-400 hover:text-teal-300 mr-4"><HiOutlinePencil className="w-5 h-5" /></button>
+                  <button onClick={() => handleDeleteEvent(event.id)} className="text-red-500 hover:text-red-400"><HiOutlineTrash className="w-5 h-5" /></button>
                 </td>
               </tr>
             ))}

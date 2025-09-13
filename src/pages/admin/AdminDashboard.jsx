@@ -9,29 +9,29 @@ const AdminDashboard = () => {
       description: 'Create and manage official class notices',
       icon: <HiOutlineSpeakerphone className="w-8 h-8" />,
       path: '/admin/notices',
-      color: 'bg-amber-100 text-amber-700',
+      color: 'bg-blue-100 text-blue-700',
     },
     {
       title: 'Event Calendar',
       description: 'Schedule and manage campus events',
       icon: <HiOutlineCalendar className="w-8 h-8" />,
       path: '/admin/events',
-      color: 'bg-emerald-100 text-emerald-700',
+      color: 'bg-purple-100 text-purple-700',
     },
     {
       title: 'Voice Box Reports',
       description: 'View and manage anonymous reports',
       icon: <HiOutlineSpeakerphone className="w-8 h-8" />,
       path: '/admin/voicebox',
-      color: 'bg-sky-100 text-sky-700',
+      color: 'bg-pink-100 text-pink-700',
     },
   ];
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       <div className="mb-10 text-center">
-        <h1 className="text-4xl sm:text-5xl font-extrabold text-sky-900 mb-2">Admin Dashboard</h1>
-        <p className="text-white-600 font-bold text-lg">Manage your campus platform efficiently</p>
+        <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-2">Admin Dashboard</h1>
+        <p className="text-gray-300 font-bold text-lg">Manage your campus platform efficiently</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -39,15 +39,15 @@ const AdminDashboard = () => {
           <Link
             key={module.path}
             to={module.path}
-            className="block p-8 rounded-2xl border border-slate-200 bg-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+            className="block p-8 rounded-2xl border border-teal-800 bg-teal-900 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
           >
             <div className={`inline-block p-4 rounded-xl ${module.color} mb-5`}>
               {module.icon}
             </div>
-            <h3 className="font-bold text-xl text-sky-900 mb-2">
+            <h3 className="font-bold text-xl text-white mb-2">
               {module.title}
             </h3>
-            <p className="text-slate-600 text-base">{module.description}</p>
+            <p className="text-gray-300 text-base">{module.description}</p>
           </Link>
         ))}
       </div>

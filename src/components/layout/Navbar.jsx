@@ -32,7 +32,7 @@ const Navbar = ({ isVisible, onSearchChange, onCategoryChange }) => {
                 placeholder="Search..."
                 value={searchQuery}
                 onChange={handleSearchChange}
-                className="bg-sky-800/50 text-white placeholder-sky-300/70 rounded-full py-2 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-sky-500/80 w-64 transition-all duration-300 group-hover:bg-sky-800/80 focus:w-72"
+                className="bg-background-secondary text-white placeholder-sky-300/70 rounded-full py-2 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-sky-500/80 w-64 transition-all duration-300 group-hover:bg-background-secondary/80 focus:w-72"
               />
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <svg className="h-5 w-5 text-sky-300/70 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -44,7 +44,7 @@ const Navbar = ({ isVisible, onSearchChange, onCategoryChange }) => {
               <select
                 value={selectedCategory}
                 onChange={handleCategoryChange}
-                className="bg-sky-800/50 text-white rounded-full py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-sky-500/80 appearance-none transition-all duration-300 group-hover:bg-sky-800/80"
+                className="bg-background-secondary text-white rounded-full py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-sky-500/80 appearance-none transition-all duration-300 group-hover:bg-background-secondary/80"
               >
                 {categories.map(category => (
                   <option key={category} value={category}>{category === 'all' ? 'All Categories' : category.charAt(0).toUpperCase() + category.slice(1)}</option>

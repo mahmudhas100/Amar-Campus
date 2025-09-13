@@ -35,7 +35,7 @@ const CommentList = ({ postId, parentId = null }) => {
   return (
     <div className={`mt-6 ${parentId ? 'pl-8' : ''}`}>
       {comments.length === 0 ? (
-        <p className="text-slate-500">No comments yet.</p>
+        <p className="text-text-secondary">No comments yet.</p>
       ) : (
         comments.map(comment => <Comment key={comment.id} comment={comment} postId={postId} parentId={parentId} />)
       )}

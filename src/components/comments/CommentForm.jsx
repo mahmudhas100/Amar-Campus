@@ -64,10 +64,10 @@ const CommentForm = ({ postId, parentId = null, parentAuthor = '', onCommentAdde
         value={content}
         onChange={(e) => setContent(e.target.value)}
         placeholder="Write a comment..."
-        className="w-full p-2 bg-slate-100 text-slate-900 placeholder-slate-400 border border-slate-400 rounded-lg"
+        className="w-full p-3 bg-background-primary text-text-primary placeholder-text-secondary border border-border-primary rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition"
         rows="3"
       ></textarea>
-      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+      {error && <p className="text-red-400 text-sm mt-1">{error}</p>}
       <div className="flex justify-end mt-2">
         <Button type="submit" disabled={loading || !content.trim()}>
           {loading ? 'Posting...' : 'Post Comment'}
