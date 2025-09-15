@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext, useLocation } from 'react-router-dom';
 import AtAGlanceCard from '../../components/cards/AtAGlanceCard';
 import ClassFeedCard from '../../components/cards/ClassFeedCard';
 import GrowthHubCard from '../../components/cards/GrowthHubCard';
@@ -22,8 +22,22 @@ const Home = () => {
   const [atAGlanceData, setAtAGlanceData] = useState({
     newNotices: 0,
     upcomingEvents: 0,
-    classesToday: 0,
+    postsToday: 0,
   });
+  const location = useLocation();
+  const todaysFeedRef = useRef(null);
+  const noticesRef = useRef(null);
+  const eventsRef = useRef(null);
+
+  useEffect(() => {
+    if (location.hash === '#todays-feed' && todaysFeedRef.current) {
+      todaysFeedRef.current.scrollIntoView({ behavior: 'smooth' });
+    } else if (location.hash === '#notices' && noticesRef.current) {
+      noticesRef.current.scrollIntoView({ behavior: 'smooth' });
+    } else if (location.hash === '#events' && eventsRef.current) {
+      eventsRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [location]);
 
   const handleCreatePost = () => {
     setCreatePostModalOpen(true);
@@ -68,12 +82,18 @@ const Home = () => {
 
     // Update At a Glance data
     const upcomingEvents = eventsData.length;
-    const classesToday = 0; // Placeholder
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const postsToday = growthData.filter(post => {
+      const postDate = post.timestamp?.toDate();
+      return postDate >= today;
+    }).length;
 
     setAtAGlanceData({
       newNotices: classData.length,
       upcomingEvents,
-      classesToday,
+      postsToday,
     });
   };
 
@@ -157,9 +177,9 @@ const Home = () => {
           At a Glance
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-          <AtAGlanceCard title="New Notices" value={atAGlanceData.newNotices} icon="🔔" />
-          <AtAGlanceCard title="Upcoming Events" value={atAGlanceData.upcomingEvents} icon="📅" />
-          <AtAGlanceCard title="Classes Today" value={atAGlanceData.classesToday} icon="📚" />
+          <AtAGlanceCard title="New Notices" value={atAGlanceData.newNotices} icon="🔔" link="#notices" />
+          <AtAGlanceCard title="Upcoming Events" value={atAGlanceData.upcomingEvents} icon="📅" link="#events" />
+          <AtAGlanceCard title="Posts Today" value={atAGlanceData.postsToday} icon="📝" link="#todays-feed" />
         </div>
       </section>
 
@@ -169,7 +189,7 @@ const Home = () => {
           Unified Feed
         </h3>
         <div className="max-w-2xl mx-auto space-y-5">
-            <h3 className="font-bold text-text-secondary text-sm uppercase tracking-wider">Official Notices</h3>
+            <h3 ref={noticesRef} className="font-bold text-text-secondary text-sm uppercase tracking-wider">Official Notices</h3>
             <div className="bg-background-secondary p-4 rounded-2xl border border-border-primary mb-6">
             {
               loading ? (
@@ -189,7 +209,7 @@ const Home = () => {
               )
             }
             </div>
-            <h3 className="font-bold text-text-secondary text-sm uppercase tracking-wider mt-10">Events</h3>
+            <h3 ref={eventsRef} className="font-bold text-text-secondary text-sm uppercase tracking-wider mt-10">Events</h3>
             {
               loading ? (
                 <Spinner />
@@ -207,7 +227,7 @@ const Home = () => {
                 </>
               )
             }
-            <h3 className="font-bold text-text-secondary text-sm uppercase tracking-wider mt-10">Today's Feed</h3>
+            <h3 ref={todaysFeedRef} className="font-bold text-text-secondary text-sm uppercase tracking-wider mt-10">Today's Feed</h3>
             {
               loading ? (
                 <Spinner />

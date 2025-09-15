@@ -1,6 +1,7 @@
 import React from 'react';
 import { HiOutlineCalendar, HiOutlineLocationMarker } from 'react-icons/hi';
 import formatTime12Hour from '../../utils/formatTime12Hour';
+import ReactMarkdown from 'react-markdown';
 
 const EventCard = ({ event }) => {
   const { title, date, time, location, description } = event || {};
@@ -32,7 +33,9 @@ const EventCard = ({ event }) => {
               <span>{location}</span>
             </div>
           )}
-          <p className="text-text-secondary text-base leading-relaxed">{description}</p>
+          <div className="prose prose-invert prose-sm max-w-none text-text-secondary leading-relaxed">
+            <ReactMarkdown>{description}</ReactMarkdown>
+          </div>
         </div>
       </div>
     </div>

@@ -69,10 +69,12 @@ const CreatePostModal = ({ isOpen, onClose, onSubmit, initialPost = null }) => {
             <select id="category" value={category} onChange={(e) => setCategory(e.target.value)} className="mt-1 block w-full px-3 py-2 bg-background-primary text-text-primary rounded-md border border-border-primary shadow-sm focus:border-accent focus:ring-accent transition">
               <option>General</option>
               <option>Skill Development</option>
+              <option>Internship and Job Opportunities</option>
               <option>Events</option>
               <option>Academic</option>
-              <option>Lost & Found</option>
-              <option>Official Notice</option>
+              <option>Campus Tips</option>
+              <option>Extracurriculars</option>
+              <option>Others</option>
             </select>
           </div>
           {error && <p className="text-red-400 text-sm mb-4 text-center">{error}</p>}

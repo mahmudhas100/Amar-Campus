@@ -1,6 +1,7 @@
 import React from 'react';
 import { formatTimeAgo } from '../../utils/formatTimestamp';
 import { LuMessageSquare } from 'react-icons/lu';
+import ReactMarkdown from 'react-markdown';
 
 const VoiceBoxPostCard = ({ post }) => {
   const { message, timestamp } = post || {};
@@ -17,8 +18,8 @@ const VoiceBoxPostCard = ({ post }) => {
           </div>
         </div>
 
-        <div>
-          <p className="text-slate-700 text-base leading-relaxed">{message}</p>
+        <div className="prose prose-slate max-w-none">
+          <ReactMarkdown>{message}</ReactMarkdown>
         </div>
 
         <div className="mt-4 flex justify-between items-center">

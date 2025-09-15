@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { db } from '../firebase/firebase';
 import { doc, getDoc } from 'firebase/firestore';
+import ReactMarkdown from 'react-markdown';
 import CommentList from '../components/comments/CommentList';
 import CommentForm from '../components/comments/CommentForm';
 import Spinner from '../components/common/Spinner';
@@ -53,7 +54,7 @@ const PostPage = () => {
               <span>{formatTimestamp(post.timestamp)}</span>
             </div>
             <div className="prose prose-lg max-w-none text-slate-800 leading-relaxed">
-              {post.content}
+              <ReactMarkdown>{post.content}</ReactMarkdown>
             </div>
           </div>
         </div>

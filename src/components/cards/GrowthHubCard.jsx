@@ -6,6 +6,7 @@ import { db } from '../../firebase/firebase';
 import { useAuth } from '../../hooks/useAuth';
 import { updateEventAttendance } from '../../firebase/firestore';
 import { formatTimeAgo } from '../../utils/formatTimestamp';
+import ReactMarkdown from 'react-markdown';
 import CommentList from '../comments/CommentList';
 import CommentForm from '../comments/CommentForm';
 import CreatePostModal from '../common/CreatePostModal';
@@ -17,7 +18,7 @@ const GrowthHubCard = ({ post }) => {
     authorName = 'User', 
     category = 'General', 
     title = 'Post Title', 
-    snippet = '', 
+    content = '', 
     upvotes = 0, 
     comments = 0, 
     timestamp, 
@@ -41,7 +42,7 @@ const GrowthHubCard = ({ post }) => {
   const attendanceMenuRef = useRef(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [postToEdit, setPostToEdit] = useState(null);
-  const [showFullContent, setShowFullContent] = useState(true);
+  const [showFullContent, setShowFullContent] = useState(false);
 
   const MAX_CONTENT_LENGTH = 200;
 
@@ -65,6 +66,7 @@ const GrowthHubCard = ({ post }) => {
 
   const handleEdit = (e) => {
     e.stopPropagation();
+    e.preventDefault();
     setPostToEdit(post);
     setIsEditModalOpen(true);
     setShowMenu(false);
@@ -158,7 +160,7 @@ const GrowthHubCard = ({ post }) => {
       try {
         await navigator.share({
           title: title,
-          text: snippet,
+          text: content,
           url: postUrl,
         });
       } catch (error) {
@@ -203,6 +205,10 @@ const GrowthHubCard = ({ post }) => {
     }
   };
 
+  const contentToDisplay = post.content.length <= MAX_CONTENT_LENGTH || showFullContent
+    ? post.content
+    : `${post.content.substring(0, MAX_CONTENT_LENGTH)}...`;
+
   return (
     <div className="bg-background-secondary rounded-xl shadow-md overflow-hidden transition-shadow duration-300 hover:shadow-xl hover:shadow-sky-900/20 border border-border-primary">
       <Link to={`/post/${id}`} className="block">
@@ -225,13 +231,13 @@ const GrowthHubCard = ({ post }) => {
               {showMenu && (
                 <div className="absolute right-0 mt-2 w-40 bg-background-primary rounded-md shadow-lg z-10 border border-border-primary">
                   <button
-                    onClick={handleEdit}
+                    onClick={(e) => handleEdit(e)}
                     className="block w-full text-left px-4 py-2 text-sm text-text-primary hover:bg-background-secondary"
                   >
                     Edit
                   </button>
                   <button
-                    onClick={handleDelete}
+                    onClick={(e) => handleDelete(e)}
                     className="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-500/10"
                   >
                     Delete
@@ -245,18 +251,16 @@ const GrowthHubCard = ({ post }) => {
         {/* Card Body */}
         <div className="px-4 sm:px-5 pb-4">
           <h3 className="text-xl font-bold text-text-primary mb-2 leading-snug">{title}</h3>
-          <p className="text-text-secondary text-base leading-relaxed">
-            {post.content.length <= MAX_CONTENT_LENGTH || showFullContent
-              ? post.content
-              : `${post.content.substring(0, MAX_CONTENT_LENGTH)}...`}
-          </p>
+          <div className="prose prose-invert prose-sm max-w-none text-text-secondary leading-relaxed">
+            <ReactMarkdown>{contentToDisplay}</ReactMarkdown>
+          </div>
           {post.content.length > MAX_CONTENT_LENGTH && (
             <button
               onClick={(e) => { e.preventDefault(); e.stopPropagation(); setShowFullContent(!showFullContent); }}
               className="text-accent hover:text-accent-hover font-semibold text-sm flex items-center mt-2"
             >
               {showFullContent ? 'Show less' : 'Read more'}
-              {showFullContent ? <HiChevronUp className="w-5 h-5 ml-1" /> : <HiChevronDown className="w-5 h-5 ml-1" />}
+              {showFullContent ? <HiChevronUp className="w-5 h-5 ml-1" /> : <HiChevronDown className="w-5 h-5 ml-1" />} 
             </button>
           )}
         </div>

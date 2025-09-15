@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { HiOutlineBell, HiChevronDown, HiChevronUp } from 'react-icons/hi';
 import formatTimestamp from '../../utils/formatTimestamp';
+import ReactMarkdown from 'react-markdown';
 
 const ClassFeedCard = ({ post }) => {
   const { title = 'Official Announcement', snippet = '', content = '', timestamp, authorName = 'Admin', priority = 'Normal' } = post || {};
@@ -43,7 +44,9 @@ const ClassFeedCard = ({ post }) => {
         {/* Card Body */}
         <div>
           <h3 className="text-xl font-bold text-text-primary mb-2 leading-snug">{title}</h3>
-          <p className="text-text-secondary text-base leading-relaxed">{displayContent}</p>
+          <div className="prose prose-invert prose-sm max-w-none text-text-secondary leading-relaxed">
+            <ReactMarkdown>{displayContent}</ReactMarkdown>
+          </div>
         </div>
 
         {/* Card Footer */}

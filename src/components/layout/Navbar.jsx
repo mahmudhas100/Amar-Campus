@@ -6,7 +6,7 @@ const Navbar = ({ isVisible, onSearchChange, onCategoryChange }) => {
   const [selectedCategory, setSelectedCategory] = useState('all');
 
   // TODO: Fetch categories from Firestore
-  const categories = ['all', 'Events', 'Notices', 'General', 'Achievements'];
+  const categories = ['all', 'Events', 'Notices', 'General', 'Skill Development', 'Internship and Job Opportunities', 'Academic', 'Campus Tips', 'Extracurriculars', 'Others'];
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
