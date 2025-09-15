@@ -16,6 +16,9 @@ const EventManager = () => {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [location, setLocation] = useState('');
+  const [minTime, setMinTime] = useState('');
+
+  const today = new Date().toISOString().split('T')[0]; // Get current date in YYYY-MM-DD format
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -26,9 +29,28 @@ const EventManager = () => {
     fetchEvents();
   }, []);
 
+  useEffect(() => {
+    const now = new Date();
+    const selectedDate = new Date(date);
+
+    if (selectedDate.toDateString() === now.toDateString()) {
+      // If selected date is today, set min time to current time
+      setMinTime(now.toTimeString().slice(0, 5)); // HH:MM format
+    } else {
+      // If selected date is in the future, no min time restriction
+      setMinTime('');
+    }
+  }, [date]);
+
   const handleCreateEvent = async (e) => {
     e.preventDefault();
-    if (!title || !date) return;
+    if (!title || !date || !time || !location) return;
+
+    const eventDateTime = new Date(`${date}T${time}`);
+    if (eventDateTime < new Date()) {
+      alert('Cannot create an event in the past.');
+      return;
+    }
 
     try {
       await addDoc(collection(db, 'events'), {
@@ -54,7 +76,13 @@ const EventManager = () => {
 
   const handleUpdateEvent = async (e) => {
     e.preventDefault();
-    if (!title || !date || !time) return;
+    if (!title || !date || !time || !location) return;
+
+    const eventDateTime = new Date(`${date}T${time}`);
+    if (eventDateTime < new Date()) {
+      alert('Cannot update an event to a past date/time.');
+      return;
+    }
 
     try {
       const eventRef = doc(db, 'events', currentEvent.id);
@@ -141,11 +169,11 @@ const EventManager = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-1">Date</label>
-                  <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="w-full px-3 py-2 bg-teal-800 border border-teal-700 rounded-lg text-white" required />
+                  <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="w-full px-3 py-2 bg-teal-800 border border-teal-700 rounded-lg text-white" required min={today} />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-1">Time</label>
-                  <input type="time" value={time} onChange={(e) => setTime(e.target.value)} className="w-full px-3 py-2 bg-teal-800 border border-teal-700 rounded-lg text-white" required />
+                  <input type="time" value={time} onChange={(e) => setTime(e.target.value)} className="w-full px-3 py-2 bg-teal-800 border border-teal-700 rounded-lg text-white" required min={minTime} />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-1">Location</label>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { HiOutlinePlus, HiOutlinePencil, HiOutlineTrash, HiChevronDown } from 'react-icons/hi';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import { db } from '../../../firebase/firebase';
@@ -12,11 +12,33 @@ const NoticeManager = () => {
   const [content, setContent] = useState('');
   const [category, setCategory] = useState('Academic');
   const [priority, setPriority] = useState('Normal');
+  const [date, setDate] = useState('');
+  const [time, setTime] = useState('');
+  const [minTime, setMinTime] = useState('');
+
+  const today = new Date().toISOString().split('T')[0];
+
+  useEffect(() => {
+    const now = new Date();
+    const selectedDate = new Date(date);
+
+    if (selectedDate.toDateString() === now.toDateString()) {
+      setMinTime(now.toTimeString().slice(0, 5));
+    } else {
+      setMinTime('');
+    }
+  }, [date]);
 
   const handleCreateNotice = async (e) => {
     e.preventDefault();
     
-    if (!title || !content) return;
+    if (!title || !content || !date || !time) return;
+
+    const noticeDateTime = new Date(`${date}T${time}`);
+    if (noticeDateTime < new Date()) {
+      alert('Cannot create a notice in the past.');
+      return;
+    }
 
     try {
       await addDoc(collection(db, 'classFeed'), {
@@ -26,7 +48,7 @@ const NoticeManager = () => {
         priority,
         authorId: user.uid,
         authorName: user.displayName,
-        createdAt: Timestamp.now(),
+        createdAt: Timestamp.fromDate(noticeDateTime),
         department: user.department,
         section: user.section,
         official: true
@@ -34,6 +56,8 @@ const NoticeManager = () => {
 
       setTitle('');
       setContent('');
+      setDate('');
+      setTime('');
       setShowCreateModal(false);
     } catch (error) {
       console.error('Error creating notice:', error);
@@ -57,7 +81,7 @@ const NoticeManager = () => {
             <HiOutlinePlus className="w-5 h-5 mr-2" />
             Create Notice
           </button>
-        </div>      {/* Create Notice Modal */}
+        </div>
       {showCreateModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-teal-900 rounded-xl p-6 max-w-2xl w-full shadow-xl">
@@ -76,6 +100,35 @@ const NoticeManager = () => {
                     placeholder="Enter notice title"
                     required
                   />
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-1">
+                      Date
+                    </label>
+                    <input
+                      type="date"
+                      value={date}
+                      onChange={(e) => setDate(e.target.value)}
+                      className="w-full px-3 py-2 bg-teal-800 border border-teal-700 rounded-lg text-white"
+                      required
+                      min={today}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-1">
+                      Time
+                    </label>
+                    <input
+                      type="time"
+                      value={time}
+                      onChange={(e) => setTime(e.target.value)}
+                      className="w-full px-3 py-2 bg-teal-800 border border-teal-700 rounded-lg text-white"
+                      required
+                      min={minTime}
+                    />
+                  </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
@@ -154,7 +207,6 @@ const NoticeManager = () => {
         </div>
       )}
 
-      {/* Notice List will be implemented here */}
       <div className="bg-teal-900 rounded-xl border border-teal-800 overflow-hidden p-4">
         <NoticeList />
       </div>
